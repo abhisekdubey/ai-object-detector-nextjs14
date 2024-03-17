@@ -1,3 +1,5 @@
+import { throttle } from 'lodash';
+
 export const renderPredictions = (predictions, ctx) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
@@ -28,5 +30,14 @@ export const renderPredictions = (predictions, ctx) => {
 
         ctx.fillStyle = "#000000";
         ctx.fillText(prediction.class, x, y);
+
+        if (isPerson) {
+            playAudio()
+        }
     });
 };
+
+const playAudio = throttle(() => {
+    const audio = new Audio("/assets/public_pols-aagyi-pols.mp3");
+    audio.play();
+}, 2000)
